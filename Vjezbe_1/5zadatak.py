@@ -13,7 +13,7 @@ def jednadzba_pravca(x1, y1, x2, y2):
     plt.title('Pravac kroz dvije točke')
     plt.grid(True)
     plt.scatter([x1, x2], [y1, y2])
-    
+
 x1 = float(input("x1 = "))
 y1 = float(input("y1 = "))
 x2 = float(input("x2 = "))
