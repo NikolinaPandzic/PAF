@@ -10,7 +10,7 @@ class Projectile:
         self.A = A
         self.m = m
         self.g = g
-        self.k = 0.5 * Cd * rho * A
+        self.otpor = 0.5 * Cd * rho * A
 
         self.vx0 = v0 * np.cos(self.angle)
         self.vy0 = v0 * np.sin(self.angle)
@@ -18,8 +18,8 @@ class Projectile:
     # sila otpora + gravitacija
     def acceleration(self, vx, vy):
         v = np.sqrt(vx**2 + vy**2)
-        ax = -self.k * v * vx / self.m
-        ay = -self.k * v * vy / self.m - self.g
+        ax = -self.otpor * v * vx / self.m
+        ay = -self.otpor * v * vy / self.m - self.g
         return ax, ay
 
     # Euler metoda
@@ -43,6 +43,8 @@ class Projectile:
         return xs, ys
 
     # Runge–Kutta 4. reda
+    #Umjesto da, kao Euler, koristimo samo jednu procjenu ubrzanja u koraku, 
+    #RK4 koristi četiri procjene (k1, k2, k3, k4) na različitim “točkama” unutar istog vremenskog koraka i onda ih kombinira
     def simulate_rk4(self, dt):
         x, y = 0.0, 0.0
         vx, vy = self.vx0, self.vy0
@@ -53,7 +55,7 @@ class Projectile:
 
             # k1
             ax1, ay1 = self.acceleration(vx, vy)
-            k1vx, k1vy = ax1, ay1
+            k1vx, k1vy = ax1, ay1 #k1 za brzinu: derivacija brzine je ubrzanje, pa su k1vx i k1vy upravo ax1, ay1
             k1x, k1y = vx, vy
 
             # k2
@@ -76,7 +78,8 @@ class Projectile:
             vy += (dt/6)*(k1vy + 2*k2vy + 2*k3vy + k4vy)
             x  += (dt/6)*(k1x  + 2*k2x  + 2*k3x  + k4x)
             y  += (dt/6)*(k1y  + 2*k2y  + 2*k3y  + k4y)
-
+#RK4 uzima prosjek derivacija na početku, dvije sredine i kraju, ali sredini daje veću važnost.
+# Zato je puno precizniji od Eulera, koji koristi samo k1
             xs.append(x)
             ys.append(y)
 
