@@ -5,10 +5,10 @@ def derivacija(f, x, eps=0.001, metoda="three-step"):
         return (f(x+eps)-f(x))/eps
     else:
         return (f(x+eps)-f(x-eps))/(2*eps)
-
+#ove dvi formule sam sa interneta preuzela
 def range_derivacije(f, a, b, eps=0.001, step=0.1, metoda="three-step"):
-    xs=[]
-    ys=[]
+    xs=[] #sve točke
+    ys=[] #sve derivacije
     x=a
     while x <= b:
         xs.append(x)

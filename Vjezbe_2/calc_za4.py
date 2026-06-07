@@ -26,7 +26,7 @@ def pravokutna_aproksimacija(f, a, b, n):
         gornja_suma += f(x+dx)
         x += dx
     return donja_suma*dx, gornja_suma*dx
-
+#Jer površina pravokutnika = visina × širina
 def trapezna_metoda(f, a, b, n):
     dx=(b-a)/n
     suma=0

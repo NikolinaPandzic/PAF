@@ -8,9 +8,9 @@ class Particle:
         self.x0 = x0 
         self.y0 = y0 
         self.g = 9.81
-        self.reset()
+        self.reset()  #da se sve postavi na početno stanje
 
-    def reset(self):
+    def reset(self): #Ova metoda vraća česticu na početak
         self.x = self.x0
         self.y = self.y0
         self.vx = self.v0 * math.cos(self.kut)
@@ -25,7 +25,7 @@ class Particle:
         self.reset()
         while self.y >= 0:             # dok je iznad tla
              self.__move(dt)
-        return self.x
+        return self.x  #vraća horizontalnu udaljenost
     
     def plot_trajectory(self, dt=0.01):
         self.reset()

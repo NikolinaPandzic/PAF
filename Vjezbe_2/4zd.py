@@ -2,6 +2,7 @@ import math
 import matplotlib.pyplot as plt
 import calc_za4
 
+
 def f(x):
     return x**2
 
@@ -9,24 +10,26 @@ def F(x):
     return x**3/3
 
 a=0
-b=2
-I_analiticki=F(b)-F(a)
-n_vrijednosti=[5, 10, 20, 50, 100]
-pravokutnik_greske=[]
-trapez_greske=[]
+b=3
+I_analiticki=F(b)-F(a) #Točna vrijednost integrala
 
-for n in n_vrijednosti:
+donjagranica=[]
+gornjagranica=[]
+trapez=[]
+
+for n in range(1, 101):
     donja, gornja = calc_za4.pravokutna_aproksimacija(f, a, b, n)
-    trapez = calc_za4.trapezna_metoda(f, a, b, n)
-    pravokutnik = (donja + gornja)/2
-    pravokutnik_greske.append(abs(pravokutnik - I_analiticki))
-    trapez_greske.append(abs(trapez - I_analiticki))
-
-plt.plot(n_vrijednosti, pravokutnik_greske, label="Pravokutna aproksimacija")
-plt.plot(n_vrijednosti, trapez_greske, label="Trapezna metoda")
-plt.xlabel(f'Broj podjela n')
-plt.ylabel(f'Greska')
-plt.title(f'Greska numericke integracije')
+    trapez.append(calc_za4.trapezna_metoda(f, a, b, n))
+    donjagranica.append(donja)
+    gornjagranica.append(gornja)
+    
+plt.plot(range(1, 101), donjagranica, label="Donja granica")
+plt.plot(range(1, 101), gornjagranica, label="Gornja granica")
+plt.plot(range(1, 101), trapez, label="Trapezna metoda") 
+plt.axhline(y=I_analiticki, color='r', linestyle='--', label="Analitički rezultat")
+plt.xlabel("Broj podjela n")
+plt.ylabel("Vrijednost integrala")
+plt.title("Numerička integracija funkcije")
 plt.legend()
 plt.grid()
 plt.show()

@@ -17,7 +17,7 @@ def df2(x):
 a=-2
 b=2
 vrijednosti_eps=[0.1, 0.01, 0.001]
-for eps in vrijednosti_eps:
+for eps in vrijednosti_eps: #numerička derivacija
     xs, ys = calculus.range_derivacije(f1, a, b, eps, 0.1)
     plt.plot(xs, ys, label=f'numericki epsilon={eps}')
 
@@ -47,3 +47,5 @@ plt.plot(xs, ys, '--', label=f'analiticki')
 plt.legend()
 plt.title(f'sin(x)')
 plt.show()
+
+#Kako eps postaje manji, numerička derivacija postaje sve točnija i krivulje se preklapaju

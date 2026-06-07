@@ -5,7 +5,7 @@ class Projectile:
     def __init__(self, v0, angle, Cd=0.47, rho=1.225, A=0.01, m=1.0, g=9.81):
         self.v0 = v0
         self.angle = np.radians(angle)
-        self.Cd = Cd
+        self.Cd = Cd #koef otpora zraka
         self.rho = rho
         self.A = A
         self.m = m
@@ -98,7 +98,7 @@ plt.plot(xs_e, ys_e, label="Euler dt=0.01")
 plt.plot(xs_rk, ys_rk, label="RK4 dt=0.01")
 plt.xlabel("x (m)")
 plt.ylabel("y (m)")
-plt.title("Euler vs Runge–Kutta 4 (dt = 0.01)")
+plt.title("Euler vs Runge-Kutta 4 (dt = 0.01)")
 plt.legend()
 plt.grid()
 plt.show()

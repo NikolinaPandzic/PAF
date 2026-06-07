@@ -11,3 +11,4 @@ print(f'Numericki:{num}')
 print(f'Analiticki:{R}')
 print(f'Greska:{abs(num-R)}')
 p.plot_trajectory(0.001)
+#Što je dt manji, numeričko rješenje je bliže analitičkom

@@ -10,7 +10,6 @@ from zadatak3 import medijan
 mean_all = np.mean(mase)
 median_all = medijan(mase)
 
-# makni očite outliere
 ciste = [x for x in mase if 1.8 < x < 2.3]
 
 mean_clean = np.mean(ciste)

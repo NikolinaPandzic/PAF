@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import math
 
 M = [0.052, 0.124, 0.168, 0.236, 0.284, 0.336]
 phi = [0.1745, 0.3491, 0.5236, 0.6981, 0.8727, 1.0472]
@@ -18,11 +19,18 @@ a = (suma_phi_m / n) / (suma_phi2 / n)
 print("Dt =", a)
 
 # pravac: y = a*x
+x=phi
 y_lin = []
 for x in phi:
     y_lin.append(a * x)
 
-# crtanje grafa
+y2_sr = sum(m**2 for m in M) / n
+x2_sr = sum(p**2 for p in phi) / n
+
+sigma_a = math.sqrt((1/n) * (y2_sr/x2_sr - a**2))
+
+print('sigma:' , sigma_a)
+
 plt.scatter(phi, M)       # točke
 plt.plot(phi, y_lin)      # pravac
 
