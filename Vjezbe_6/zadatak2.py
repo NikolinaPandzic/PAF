@@ -1,12 +1,16 @@
 import numpy as np
+import math
 from zadatak1 import obradi_valjak
 from zadatak1 import v1, v2, v3
 
 def volumen_valjka(R, L): 
     return np.pi * R**2 * L
 
-def sigma_volumena(R, sigma_R, L, sigma_L):
-    return np.sqrt((2 * np.pi * R * L * sigma_R)**2 + (np.pi * R**2 * sigma_L)**2)
+def sigma_volumena(R, sigma_R, L, sigma_L): 
+   parc_VR = 2*math.pi*R*L        
+   parc_VL = math.pi*R**2         
+   sigma_V = math.sqrt((parc_VR*sigma_R)**2 + (parc_VL*sigma_L)**2)
+   return sigma_V
 
 def u_cm(x_mm):
     return x_mm / 10

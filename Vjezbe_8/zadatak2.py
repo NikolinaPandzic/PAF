@@ -22,7 +22,6 @@ period_240 = np.array([
     1.5600, 1.7413, 1.9840, 2.4473, 3.1573
 ])
 
-# Pretvorba stupnjeva u radijane
 kut_rad = np.radians(kut)
 
 g = 9.81
@@ -59,7 +58,6 @@ stvarna240 = 0.240
 rel_pogreska120 = abs(duljina120 - stvarna120) / stvarna120 * 100
 rel_pogreska240 = abs(duljina240 - stvarna240) / stvarna240 * 100
 
-# Ispis rezultata
 print("----- Njihalo 120 mm -----")
 print(f"Duljina = {duljina120:.5f} ± {pogreska120:.5f} m")
 print(f"Relativna pogreška = {rel_pogreska120:.2f} %")
@@ -70,7 +68,6 @@ print("----- Njihalo 240 mm -----")
 print(f"Duljina = {duljina240:.5f} ± {pogreska240:.5f} m")
 print(f"Relativna pogreška = {rel_pogreska240:.2f} %")
 
-# Crtanje teorijskih krivulja
 kut_graf = np.linspace(0, np.radians(85), 500)
 
 plt.figure(figsize=(10, 6))

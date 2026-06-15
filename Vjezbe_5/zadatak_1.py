@@ -6,4 +6,4 @@ print(b)
 
 c = 0.1 + 0.2 + 0.3
 print(c)
-#Računala koriste binarni zapis realnih brojeva, što uzrokuje male pogreške
+#ne može zapisat točan binarni zapis vec uzima najblizu binarnu aproksimaciju

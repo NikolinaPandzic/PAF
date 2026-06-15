@@ -1,4 +1,5 @@
 import numpy as np
+import math
 from zadatak1 import v1 ,v2 ,v3
 from zadatak2 import volumeni , sigme_V
 
@@ -6,7 +7,10 @@ def gustoća(m, V):
     return m / V
 
 def sigma_gustoće(m, sigma_m, V, sigma_V): 
-    return np.sqrt((sigma_m / V)**2 + (m * sigma_V / V**2)**2)
+    parcRo_m= 1/V
+    parcRo_V= -1*m*V**(-2)
+    sigma_ro = math.sqrt((parcRo_m*sigma_m)**2 + (parcRo_V*sigma_V)**2)
+    return sigma_ro
 
 gustoce = [] 
 sigme_rho = []

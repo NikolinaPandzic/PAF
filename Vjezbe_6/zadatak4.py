@@ -9,9 +9,10 @@ rho_tablica = {
 }
 
 for i in range(3):
-    rho = gustoce[i]
+    rho = gustoce[i] #uzima gustocu iz liste
 #Usporedila sam izmjerenu gustoću s literaturnim vrijednostima i odabrala materijal čija je gustoća najbliža eksperimentalnoj.
     materijal = min(rho_tablica, key=lambda x: abs(rho - rho_tablica[x]))
+    #Lambda je mala funkcija bez imena koja ovdje računa koliko je gustoća pojedinog materijala udaljena od izmjerene gustoće
     rho_lit = rho_tablica[materijal]
 
     delta = abs(rho - rho_lit) / rho_lit * 100
