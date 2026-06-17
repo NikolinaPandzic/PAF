@@ -2,93 +2,103 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 
-# Kutovi u stupnjevima
+# podaci
 kut = np.array([0, 5, 10, 15, 20, 25, 30, 35, 40,
                 45, 50, 55, 60, 65, 70, 75, 80, 85])
 
-# Periodi za l = 120 mm
-period_120 = np.array([
+T_120 = np.array([
     0.8020, 0.8187, 0.8327, 0.8660, 0.8980,
     0.9153, 0.9293, 0.9653, 0.9747,
     1.0200, 1.0373, 1.1160, 1.1780,
     1.2733, 1.4180, 1.6373, 1.9100, 2.5460
 ])
 
-# Periodi za l = 240 mm
-period_240 = np.array([
+T_240 = np.array([
     1.0140, 1.0320, 1.0433, 1.0673, 1.0840,
     1.1320, 1.1440, 1.1720, 1.1980,
     1.2293, 1.2813, 1.3573, 1.4200,
-    1.5600, 1.7413, 1.9840, 2.4473, 3.1573
+    1.5600, 1.7413, 1.9840, 2.4473,
+    3.1573
 ])
 
-kut_rad = np.radians(kut)
 
 g = 9.81
 
-# Teorijska funkcija
-def period_njihala(kut_rad, duljina):
-    return 2 * np.pi * np.sqrt(duljina / (g * np.cos(kut_rad)))
+# stupnjevi -> radijani
+kut_rad = np.radians(kut)
 
-# Fit za l = 120 mm
-parametri120, matrica_pogresaka120 = curve_fit(
-    period_njihala,
-    kut_rad,
-    period_120
-)
 
-duljina120 = parametri120[0]
-pogreska120 = np.sqrt(matrica_pogresaka120[0, 0])
+# teorijska funkcija
+def period_njihala(kut, L):
+    return 2*np.pi*np.sqrt(L/(g*np.cos(kut)))
 
-# Fit za l = 240 mm
-parametri240, matrica_pogresaka240 = curve_fit(
-    period_njihala,
-    kut_rad,
-    period_240
-)
 
-duljina240 = parametri240[0]
-pogreska240 = np.sqrt(matrica_pogresaka240[0, 0])
+# -------------------------
+# curve_fit
+# -------------------------
 
-# Stvarne duljine
-stvarna120 = 0.120
-stvarna240 = 0.240
+# traži duljinu L koja najbolje opisuje mjerenja
 
-# Relativne pogreške
-rel_pogreska120 = abs(duljina120 - stvarna120) / stvarna120 * 100
-rel_pogreska240 = abs(duljina240 - stvarna240) / stvarna240 * 100
+L120 = curve_fit(period_njihala, kut_rad, T_120)[0][0]
+
+L240 = curve_fit(period_njihala, kut_rad, T_240)[0][0]
+
 
 print("----- Njihalo 120 mm -----")
-print(f"Duljina = {duljina120:.5f} ± {pogreska120:.5f} m")
-print(f"Relativna pogreška = {rel_pogreska120:.2f} %")
+print("Dobivena duljina L =", L120, "m")
 
 print()
 
 print("----- Njihalo 240 mm -----")
-print(f"Duljina = {duljina240:.5f} ± {pogreska240:.5f} m")
-print(f"Relativna pogreška = {rel_pogreska240:.2f} %")
+print("Dobivena duljina L =", L240, "m")
 
-kut_graf = np.linspace(0, np.radians(85), 500)
 
-plt.figure(figsize=(10, 6))
+# -------------------------
+# relativna pogreška
+# -------------------------
 
-plt.scatter(kut, period_120, label='Mjerenja (120 mm)')
-plt.plot(
-    np.degrees(kut_graf),
-    period_njihala(kut_graf, duljina120),
-    label=f'Fit 120 mm (l = {duljina120:.4f} m)'
-)
+prava120 = 0.120
+prava240 = 0.240
 
-plt.scatter(kut, period_240, label='Mjerenja (240 mm)')
-plt.plot(
-    np.degrees(kut_graf),
-    period_njihala(kut_graf, duljina240),
-    label=f'Fit 240 mm (l = {duljina240:.4f} m)'
-)
+pogreska120 = abs(L120-prava120)/prava120*100
+pogreska240 = abs(L240-prava240)/prava240*100
 
-plt.title('Ovisnost perioda njihala o kutu otklona')
-plt.xlabel('Kut θ (°)')
-plt.ylabel('Period T (s)')
-plt.grid(True)
+
+print()
+print("Relativna pogreška 120 mm =", pogreska120, "%")
+print("Relativna pogreška 240 mm =", pogreska240, "%")
+
+
+# -------------------------
+# graf
+# -------------------------
+
+kut_glatko = np.linspace(0, np.radians(85), 300)
+
+
+plt.figure(figsize=(10,6))
+
+
+# 120 mm
+plt.scatter(kut, T_120, label="Mjerenja 120 mm")
+
+plt.plot(np.degrees(kut_glatko),
+         period_njihala(kut_glatko, L120),
+         label="Fit 120 mm")
+
+
+# 240 mm
+plt.scatter(kut, T_240, label="Mjerenja 240 mm")
+
+plt.plot(np.degrees(kut_glatko),
+         period_njihala(kut_glatko, L240),
+         label="Fit 240 mm")
+
+
+plt.xlabel("Kut θ (°)")
+plt.ylabel("Period T (s)")
+plt.title("Ovisnost perioda njihala o kutu")
+plt.grid()
 plt.legend()
+
 plt.show()

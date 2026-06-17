@@ -13,16 +13,16 @@ medijan_ukupno = medijan(mase)
 mu = np.mean(mase)
 sigma = np.std(mase)
 
-bez_outliera = [x for x in mase if abs(x - mu) <= 2*sigma]
-srednja_bez = np.mean(bez_outliera)
-medijan_bez = medijan(bez_outliera)
+bez_greski = [x for x in mase if abs(x - mu) <= 2*sigma]
+srednja_bez = np.mean(bez_greski)
+medijan_bez = medijan(bez_greski)
 
 print("\n--- Rezultati ---")
 print("Sredina (sve):", srednja_ukupno)
 print("Medijan (sve):", medijan_ukupno)
 
-print("Sredina (bez outliera):", srednja_bez)
-print("Medijan (bez outliera):", medijan_bez)
+print("Sredina (bez greski):", srednja_bez)
+print("Medijan (bez greski):", medijan_bez)
 
 print("\nPromjena sredine:", srednja_bez - srednja_ukupno)
 print("Promjena medijana:", medijan_bez - medijan_ukupno)
