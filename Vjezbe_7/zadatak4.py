@@ -7,35 +7,36 @@ mase = mase_ciste + [6.0 , 1.2 , 3.2 , 4.5 , 8.5 , 7.8 , 0.08 , 0.02] # pogreske
 
 from zadatak3 import medijan
 
-mean_all = np.mean(mase)
-median_all = medijan(mase)
+srednja_ukupno = np.mean(mase)
+medijan_ukupno = medijan(mase)
 
-ciste = [x for x in mase if 1.8 < x < 2.3]
+mu = np.mean(mase)
+sigma = np.std(mase)
 
-mean_clean = np.mean(ciste)
-median_clean = medijan(ciste)
+bez_outliera = [x for x in mase if abs(x - mu) <= 2*sigma]
+srednja_bez = np.mean(bez_outliera)
+medijan_bez = medijan(bez_outliera)
 
 print("\n--- Rezultati ---")
-print("Sredina (sve):", mean_all)
-print("Medijan (sve):", median_all)
+print("Sredina (sve):", srednja_ukupno)
+print("Medijan (sve):", medijan_ukupno)
 
-print("Sredina (bez outliera):", mean_clean)
-print("Medijan (bez outliera):", median_clean)
+print("Sredina (bez outliera):", srednja_bez)
+print("Medijan (bez outliera):", medijan_bez)
 
-print("\nPromjena sredine:", mean_clean - mean_all)
-print("Promjena medijana:", median_clean - median_all)
+print("\nPromjena sredine:", srednja_bez - srednja_ukupno)
+print("Promjena medijana:", medijan_bez - medijan_ukupno)
 
 # graf sve zajedno
 plt.figure()
 plt.hist(mase, bins=10, alpha=0.5,edgecolor= 'black')
 
-plt.axvline(mean_all, linestyle='--', label='mean (sve)')
-plt.axvline(median_all, linestyle='-', label='median (sve)')
-plt.axvline(mean_clean, linestyle='--', label='mean (clean)')
-plt.axvline(median_clean, linestyle='-', label='median (clean)')
+plt.axvline(srednja_ukupno, linestyle='--',color='red', label='srednja (sve)')
+plt.axvline(medijan_ukupno, linestyle='-',color='blue', label='medijan (sve)')
+plt.axvline(srednja_bez, linestyle='--', color='orange', label='srednja (bez)')
+plt.axvline(medijan_bez, linestyle='-',color='green', label='medijan (bez)')
 
 plt.xlabel("Masa")
 plt.ylabel("Frekvencija")
-plt.title("Utjecaj outliera")
 plt.legend()
 plt.show()
