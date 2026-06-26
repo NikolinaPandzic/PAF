@@ -20,7 +20,7 @@ b = (np.sum(y)-a*np.sum(x))/n
 
 
 y_fit = a*x+b
-s2 = np.sum((y-y_fit)**2)/(n-2)
+s2 = np.sum((y-y_fit)**2)/(n-2) #procjena varijance pogreške
 
 sigma_a = np.sqrt(n*s2/(n*np.sum(x**2)-np.sum(x)**2))
 

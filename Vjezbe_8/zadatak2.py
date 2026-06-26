@@ -21,24 +21,16 @@ T_240 = np.array([
     3.1573
 ])
 
-
 g = 9.81
 
 # stupnjevi -> radijani
 kut_rad = np.radians(kut)
 
-
 # teorijska funkcija
 def period_njihala(kut, L):
     return 2*np.pi*np.sqrt(L/(g*np.cos(kut)))
 
-
-# -------------------------
-# curve_fit
-# -------------------------
-
-# traži duljinu L koja najbolje opisuje mjerenja
-
+# traži onu vrijednost 𝐿 za koju je teorijska krivulja najbliža izmjerenim točkama (u smislu najmanjih kvadrata)
 L120 = curve_fit(period_njihala, kut_rad, T_120)[0][0]
 
 L240 = curve_fit(period_njihala, kut_rad, T_240)[0][0]
@@ -52,32 +44,19 @@ print()
 print("----- Njihalo 240 mm -----")
 print("Dobivena duljina L =", L240, "m")
 
-
-# -------------------------
-# relativna pogreška
-# -------------------------
-
 prava120 = 0.120
 prava240 = 0.240
 
 pogreska120 = abs(L120-prava120)/prava120*100
 pogreska240 = abs(L240-prava240)/prava240*100
 
-
 print()
 print("Relativna pogreška 120 mm =", pogreska120, "%")
 print("Relativna pogreška 240 mm =", pogreska240, "%")
 
-
-# -------------------------
-# graf
-# -------------------------
-
 kut_glatko = np.linspace(0, np.radians(85), 300)
 
-
 plt.figure(figsize=(10,6))
-
 
 # 120 mm
 plt.scatter(kut, T_120, label="Mjerenja 120 mm")
